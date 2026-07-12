@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base Reset ── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #18181b;
+  color: #f4f4f5;
+  overflow: hidden;
+  height: 100vh;
+}
+
+#root {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #18181b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+
+/* ── Leaflet Overrides ── */
+.leaflet-container {
+  background: #0f172a !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.leaflet-control-zoom a {
+  background-color: #1e293b !important;
+  color: #a1a1aa !important;
+  border-color: #27272a !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: #334155 !important;
+  color: #f4f4f5 !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #0f172a !important;
+  color: #f4f4f5 !important;
+  border: 1px solid #27272a !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+.leaflet-popup-tip {
+  background: #0f172a !important;
+  border: 1px solid #27272a !important;
+}
+
+.leaflet-popup-close-button {
+  color: #a1a1aa !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: #f4f4f5 !important;
+}
+
+/* ── Marker Glow ── */
+.marker-glow {
+  border-radius: 50%;
+  animation: markerPulse 2.5s ease-in-out infinite;
+}
+
+.marker-glow-green {
+  box-shadow: 0 0 10px 4px rgba(34, 197, 94, 0.35);
+}
+
+.marker-glow-amber {
+  box-shadow: 0 0 10px 4px rgba(245, 158, 11, 0.35);
+}
+
+.marker-glow-red {
+  box-shadow: 0 0 10px 4px rgba(239, 68, 68, 0.35);
+}
+
+@keyframes markerPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.8;
+  }
+}
+
+/* ── Chart Tooltip ── */
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background-color: #0f172a !important;
+  border: 1px solid #27272a !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* ── Custom Utilities ── */
+@layer utilities {
+  .text-gradient-accent {
+    background: linear-gradient(135deg, #8B1E3F, #A82553);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .border-subtle {
+    border-color: #27272a;
+  }
+
+  .bg-glass {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px);
+  }
+}
