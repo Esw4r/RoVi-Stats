@@ -9,10 +9,12 @@ import {
   ChevronLeft,
   ChevronRight,
   Radio,
+  Scan,
+  LogOut,
 } from 'lucide-react'
 import useAppStore from '../../store/useAppStore'
 
-const navItems = [
+const adminNavItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/live-map', icon: Map, label: 'Live Map' },
   { to: '/analytics', icon: BarChart3, label: 'Analytics' },
@@ -21,8 +23,14 @@ const navItems = [
   { to: '/settings', icon: Settings, label: 'Settings' },
 ]
 
+const userNavItems = [
+  { to: '/', icon: Scan, label: 'Live Detection' },
+  { to: '/settings', icon: Settings, label: 'Settings' },
+]
+
 export default function Sidebar() {
-  const { sidebarCollapsed, toggleSidebar } = useAppStore()
+  const { sidebarCollapsed, toggleSidebar, userRole, logout } = useAppStore()
+  const navItems = userRole === 'admin' ? adminNavItems : userNavItems
 
   return (
     <aside
@@ -46,6 +54,20 @@ export default function Sidebar() {
           </div>
         )}
       </div>
+
+      {/* Role Badge */}
+      {!sidebarCollapsed && (
+        <div className="px-4 pt-3 pb-1 animate-fade-in">
+          <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-medium uppercase tracking-wider ${
+            userRole === 'admin'
+              ? 'bg-accent/10 text-accent border border-accent/20'
+              : 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
+          }`}>
+            <div className={`w-1.5 h-1.5 rounded-full ${userRole === 'admin' ? 'bg-accent' : 'bg-blue-500'}`} />
+            {userRole === 'admin' ? 'Admin' : 'User'}
+          </div>
+        </div>
+      )}
 
       {/* Navigation */}
       <nav className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
@@ -77,8 +99,18 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      {/* Collapse Toggle */}
-      <div className="px-3 pb-4 border-t border-zinc-800 pt-4">
+      {/* Bottom: Logout + Collapse */}
+      <div className="px-3 pb-4 border-t border-zinc-800 pt-4 space-y-1">
+        {/* Logout / Switch Role */}
+        <button
+          onClick={logout}
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-zinc-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-200 w-full"
+        >
+          <LogOut className="w-[18px] h-[18px] flex-shrink-0" />
+          {!sidebarCollapsed && <span>Switch Role</span>}
+        </button>
+
+        {/* Collapse Toggle */}
         <button
           onClick={toggleSidebar}
           className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-zinc-400 hover:text-zinc-200 hover:bg-slate-800/50 transition-all duration-200 w-full"

@@ -1,1 +1,3 @@
 node_modules/
+models/RNN/*.pt
+backend/__pycache__/

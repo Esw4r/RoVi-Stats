@@ -1,8 +1,8 @@
 import { useLocation } from 'react-router-dom'
-import { Search, Bell, Calendar, User } from 'lucide-react'
+import { Search, Bell, Calendar, User, Shield, Eye } from 'lucide-react'
 import useAppStore from '../../store/useAppStore'
 
-const pageTitles = {
+const adminPageTitles = {
   '/': 'Dashboard',
   '/live-map': 'Live Map',
   '/analytics': 'Damage Analytics',
@@ -11,9 +11,15 @@ const pageTitles = {
   '/settings': 'Settings',
 }
 
+const userPageTitles = {
+  '/': 'Live Detection',
+  '/settings': 'Settings',
+}
+
 export default function Navbar() {
   const location = useLocation()
-  const { filters, setFilter } = useAppStore()
+  const { filters, setFilter, userRole } = useAppStore()
+  const pageTitles = userRole === 'admin' ? adminPageTitles : userPageTitles
   const title = pageTitles[location.pathname] || 'Dashboard'
 
   return (
@@ -21,7 +27,11 @@ export default function Navbar() {
       {/* Page Title */}
       <div>
         <h2 className="text-lg font-semibold text-zinc-100">{title}</h2>
-        <p className="text-xs text-zinc-500">Real-time road damage monitoring</p>
+        <p className="text-xs text-zinc-500">
+          {userRole === 'admin'
+            ? 'Real-time road damage monitoring'
+            : 'CNN-powered pothole detection'}
+        </p>
       </div>
 
       {/* Center: Search */}
@@ -40,11 +50,13 @@ export default function Navbar() {
 
       {/* Right: Controls */}
       <div className="flex items-center gap-3">
-        {/* Date Filter */}
-        <button className="flex items-center gap-2 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-400 hover:text-zinc-200 hover:border-zinc-600 transition-colors">
-          <Calendar className="w-4 h-4" />
-          <span className="hidden lg:inline">Last 30 days</span>
-        </button>
+        {/* Date Filter (admin only) */}
+        {userRole === 'admin' && (
+          <button className="flex items-center gap-2 px-3 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-400 hover:text-zinc-200 hover:border-zinc-600 transition-colors">
+            <Calendar className="w-4 h-4" />
+            <span className="hidden lg:inline">Last 30 days</span>
+          </button>
+        )}
 
         {/* Notifications */}
         <button className="relative p-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 transition-colors">
@@ -57,10 +69,20 @@ export default function Navbar() {
 
         {/* User */}
         <button className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-zinc-800 transition-colors">
-          <div className="w-8 h-8 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center">
-            <User className="w-4 h-4 text-accent" />
+          <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+            userRole === 'admin'
+              ? 'bg-accent/20 border border-accent/40'
+              : 'bg-blue-500/20 border border-blue-500/40'
+          }`}>
+            {userRole === 'admin' ? (
+              <Shield className="w-4 h-4 text-accent" />
+            ) : (
+              <Eye className="w-4 h-4 text-blue-400" />
+            )}
           </div>
-          <span className="hidden lg:block text-sm text-zinc-300 font-medium">Admin</span>
+          <span className="hidden lg:block text-sm text-zinc-300 font-medium capitalize">
+            {userRole}
+          </span>
         </button>
       </div>
     </header>

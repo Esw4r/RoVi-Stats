@@ -1,0 +1,194 @@
+{
+  "status": "experimental_pseudo_label_training",
+  "metrics_meaning": "Agreement with unreviewed YOLO labels, NOT independently measured damage accuracy.",
+  "split_notes": "Chosen after auditing label availability: train first two Nov 19 clips, validate third, test fourth; all Nov 10 clips form a separate night_test. Daytime splits are from the same trip and may share road/scene context. No windows cross files. Independent-trip damage generalization is NOT established.",
+  "training_sequences": 1786,
+  "training_positive_sequences": [
+    30,
+    0,
+    2,
+    3,
+    6
+  ],
+  "classes": [
+    "longitudinal crack",
+    "transverse crack",
+    "alligator crack",
+    "other corruption",
+    "Pothole"
+  ],
+  "rnn_best_epoch": 10,
+  "baseline_best_epoch": 57,
+  "selection": "Validation macro F1 over positive-support classes; weighted BCE breaks ties. Positive weights capped at 100. Unsupported classes masked in both models.",
+  "validation": {
+    "samples": 893,
+    "macro_f1_present_classes": 0.08602150529623032,
+    "micro_f1": 0.2330097109079361,
+    "per_class": {
+      "longitudinal crack": {
+        "support": 24,
+        "predicted_positive": 69,
+        "precision": 0.17391304671764374,
+        "recall": 0.5,
+        "f1": 0.25806450843811035
+      },
+      "transverse crack": {
+        "support": 0,
+        "predicted_positive": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "alligator crack": {
+        "support": 0,
+        "predicted_positive": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "other corruption": {
+        "support": 1,
+        "predicted_positive": 6,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Pothole": {
+        "support": 2,
+        "predicted_positive": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    }
+  },
+  "test": {
+    "samples": 893,
+    "macro_f1_present_classes": 0.06446892768144608,
+    "micro_f1": 0.06545454263687134,
+    "per_class": {
+      "longitudinal crack": {
+        "support": 19,
+        "predicted_positive": 138,
+        "precision": 0.05797101557254791,
+        "recall": 0.42105263471603394,
+        "f1": 0.10191082954406738
+      },
+      "transverse crack": {
+        "support": 0,
+        "predicted_positive": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "alligator crack": {
+        "support": 0,
+        "predicted_positive": 25,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "other corruption": {
+        "support": 4,
+        "predicted_positive": 70,
+        "precision": 0.014285714365541935,
+        "recall": 0.25,
+        "f1": 0.027027027681469917
+      },
+      "Pothole": {
+        "support": 0,
+        "predicted_positive": 19,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    }
+  },
+  "frame_only_baseline_test": {
+    "samples": 893,
+    "macro_f1_present_classes": 0.0714285746216774,
+    "micro_f1": 0.07894736528396606,
+    "per_class": {
+      "longitudinal crack": {
+        "support": 19,
+        "predicted_positive": 296,
+        "precision": 0.06418918818235397,
+        "recall": 1.0,
+        "f1": 0.12063492089509964
+      },
+      "transverse crack": {
+        "support": 0,
+        "predicted_positive": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "alligator crack": {
+        "support": 0,
+        "predicted_positive": 30,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "other corruption": {
+        "support": 4,
+        "predicted_positive": 176,
+        "precision": 0.011363636702299118,
+        "recall": 0.5,
+        "f1": 0.02222222276031971
+      },
+      "Pothole": {
+        "support": 0,
+        "predicted_positive": 7,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    }
+  },
+  "night_test": {
+    "samples": 3572,
+    "macro_f1_present_classes": 0.0,
+    "micro_f1": 0.0,
+    "per_class": {
+      "longitudinal crack": {
+        "support": 0,
+        "predicted_positive": 1430,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "transverse crack": {
+        "support": 0,
+        "predicted_positive": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "alligator crack": {
+        "support": 0,
+        "predicted_positive": 797,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "other corruption": {
+        "support": 5,
+        "predicted_positive": 861,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Pothole": {
+        "support": 0,
+        "predicted_positive": 643,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    }
+  },
+  "elapsed_seconds": 8.798814296722412,
+  "cnn_sha256": "b8295ce24303453a68497c2d0c4539c3d1eabd865192bd6fc345211f37f7b01a",
+  "checkpoint_sha256": "0d516342cbca7025aa1e456e3169c692b57597c617ef96292f1f53fda8f8272c"
+}

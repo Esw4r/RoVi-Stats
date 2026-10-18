@@ -1,6 +1,11 @@
 import { create } from 'zustand'
 
 const useAppStore = create((set) => ({
+  // ── User Role ──
+  userRole: null, // 'admin' | 'user' | null (null = not selected yet)
+  setUserRole: (role) => set({ userRole: role }),
+  logout: () => set({ userRole: null }),
+
   // Sidebar
   sidebarCollapsed: false,
   toggleSidebar: () => set((s) => ({ sidebarCollapsed: !s.sidebarCollapsed })),
